@@ -1,8 +1,8 @@
 # Remote Control with Docker Context
 
-> The video for this Docker Nugget is here: `TODO`
+> The video for this Docker Nugget is here: https://youtu.be/YX2BSioWyhI
 
-> The docs for the demos are here: `TODO`
+> The docs for the demos are here: https://is.gd/cGD5Gl
 
 ## Intro
 
@@ -17,7 +17,30 @@
 ## Diagram
 
 ```
-TODO
++---------------------------------+
+|                                 |
+|       +-----------------+       |
+|       |                 |       |
+|       |   Docker CLI    +------------------------------------+
+|       |                 |       |                            |
+|       +--------+--------+       |      HTTP/                 |
+|                |                |      mTLS/                 |
+|  Linux socket/ |                |      SSH                   |
+|  named pipe    |                |                            |
+|                |                |                            |
+|                |                |               +-------------------------+
+|   +-------------------------+   |               |  +---------v-------+    |
+|   |  +---------v-------+    |   |               |  |   Docker API    |    |
+|   |  |   Docker API    |    |   |               |  +-----------------+    |
+|   |  +-----------------+    |   |               |                         |
+|   |                         |   |               |    Docker Engine        |
+|   |    Docker Engine        |   |               |                         |
+|   |                         |   |               +-------------------------+
+|   +-------------------------+   |
+|                                 |
+|                                 |
++---------------------------------+
+
 ```
 
 ## Demo 1 - Setup Remote Access without TLS
@@ -123,7 +146,7 @@ Update your Docker Engine config to use port `2376` (by convention), and add the
 Restart the Docker service and set up a context to connect securely:
 
 ```
-docker context create rock64-01-tls --docker "host=tcp://rock64-01.sixeyed:2375,ca=/docker-certs/ca.pem,cert=/docker-certs/cert.pem,key=/docker-certs/key.pem"
+docker context create rock64-01-tls --docker "host=tcp://rock64-01.sixeyed:2376,ca=/docker-certs/ca.pem,cert=/docker-certs/cert.pem,key=/docker-certs/key.pem"
 ```
 
 Connect with mTLS:
@@ -224,3 +247,10 @@ Previous session:
 ```
 docker container ls
 ```
+
+## Links
+
+- [DietPi](https://www.dietpi.com) - lightweight Linux distro for Arm boards
+- [Docker API docs](https://docs.docker.com/engine/api/v1.40/)
+- [Docker context docs](https://docs.docker.com/engine/context/working-with-contexts/)
+- [Learn Docker in a Month of Lunches](https://is.gd/diamol) - my book :)
