@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: prometheus-configmap
+  namespace: default
+data:
+  prometheus.yml: |-
+    global:
+      scrape_interval: 30s
+
+    scrape_configs:
+      - job_name: "web"
+        static_configs:
+          - targets: ["pi-web:8088"]
+          
+      - job_name: "wcf"
+        static_configs:
+          - targets: ["pi-wcf:50505"]
